@@ -174,6 +174,10 @@ For a temporary public URL (demo), deploy from this repo using the root `Dockerf
 
 The Docker image already sets **`HOST=0.0.0.0`** and **`DATABASE_URL=file:/app/data/dev.db`**. Override those in Railway only if you need different values.
 
+The UI talks to the API using **`localStorage.APP_URL`** (default in the bundle is `http://localhost:8000`). `apps/cli/frontend/index.html` includes a small script so that on non-localhost hosts (e.g. Railway) **`APP_URL` is set to the page origin** automatically. If you still see “backend offline”, clear site data for that domain or remove a stale `APP_URL` in DevTools → Application → Local Storage.
+
+On the **login** screen, use the same value as your Railway **`ADMIN_PASSWORD`**; the browser stores it under **`ADMIN_PASSWORD`** in local storage for API requests.
+
 Railway injects **`PORT`** automatically; do not override it unless you know you need to.
 
 4. Under **Networking**, generate a public domain and open it over HTTPS.
