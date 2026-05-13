@@ -1,5 +1,6 @@
 #### BASE
-FROM node:lts-alpine3.17 AS base
+# Node 22+ required: workspace pnpm uses built-in `node:sqlite` (unavailable on Node 20).
+FROM node:22-alpine AS base
 
 ENV MOON_TOOLCHAIN_FORCE_GLOBALS=true
 
@@ -42,7 +43,7 @@ RUN moon run cli:build
 RUN moon docker prune
 
 ##### RUNNER
-FROM node:lts-alpine3.17 AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 
 COPY --from=build /app/apps/cli ./apps/cli

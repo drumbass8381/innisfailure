@@ -160,6 +160,26 @@ innisfailures trade grid
 
 > To stop the live trading, run `innisfailures stop`
 
+## Deploy on Railway
+
+For a temporary public URL (demo), deploy from this repo using the root `Dockerfile` and `railway.json`.
+
+1. In [Railway](https://railway.app/), create a project and connect this GitHub repository (or deploy from the CLI).
+2. Create a single service from the repo. Railway uses the root **Dockerfile** (also declared in `railway.json`).
+3. In the service **Variables** tab, set:
+
+| Name | Value |
+|------|--------|
+| `HOST` | `0.0.0.0` |
+| `ADMIN_PASSWORD` | A strong password (used to access the UI; do not commit it) |
+| `DATABASE_URL` | `file:/app/data/dev.db` (matches the Docker image; SQLite under `/app/data`) |
+
+Railway injects **`PORT`** automatically; do not override it unless you know you need to.
+
+4. Under **Networking**, generate a public domain and open it over HTTPS.
+
+The SQLite database lives on the container filesystem unless you attach a volume, so data can be lost on redeploy. For a short demo that is usually fine.
+
 # Project structure
 
 - Strategies dir: [packages/bot-templates](/packages/bot-templates/src/templates)
@@ -173,6 +193,3 @@ Licensed under the [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) Lice
 # Disclaimer
 
 This software is for educational purposes only. USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS AND ALL AFFILIATES ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS. Do not risk money that you are afraid to lose. There might be bugs in the code - this software DOES NOT come with ANY warranty.
-#   i n n i s f a i l u r e  
- #   i n n i s f a i l u r e  
- 
