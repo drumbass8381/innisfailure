@@ -1,0 +1,98 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/processing",
+    "paths": {
+      "@innisfailures/bot-processor": [
+        "../bot-processor/src/index.ts"
+      ],
+      "@innisfailures/bot-processor/*": [
+        "../bot-processor/src/*"
+      ],
+      "@innisfailures/bot-templates": [
+        "../bot-templates/src/index.ts"
+      ],
+      "@innisfailures/bot-templates/*": [
+        "../bot-templates/src/*"
+      ],
+      "@innisfailures/db": [
+        "../db/src/index.ts"
+      ],
+      "@innisfailures/db/*": [
+        "../db/src/*"
+      ],
+      "@innisfailures/eslint/*": [
+        "../eslint/*"
+      ],
+      "@innisfailures/exchanges": [
+        "../exchanges/src/index.ts"
+      ],
+      "@innisfailures/exchanges/*": [
+        "../exchanges/src/*"
+      ],
+      "@innisfailures/logger": [
+        "../logger/src/index.ts"
+      ],
+      "@innisfailures/logger/*": [
+        "../logger/src/*"
+      ],
+      "@innisfailures/solana-execution": [
+        "../solana-execution/src/index.ts"
+      ],
+      "@innisfailures/solana-execution/*": [
+        "../solana-execution/src/*"
+      ],
+      "@innisfailures/tools": [
+        "../tools/src/index.ts"
+      ],
+      "@innisfailures/tools/*": [
+        "../tools/src/*"
+      ],
+      "@innisfailures/tsconfig/*": [
+        "../tsconfig/*"
+      ],
+      "@innisfailures/types": [
+        "../types/src/index.ts"
+      ],
+      "@innisfailures/types/*": [
+        "../types/src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../bot-processor"
+    },
+    {
+      "path": "../bot-templates"
+    },
+    {
+      "path": "../db"
+    },
+    {
+      "path": "../eslint"
+    },
+    {
+      "path": "../exchanges"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../solana-execution"
+    },
+    {
+      "path": "../tools"
+    },
+    {
+      "path": "../tsconfig"
+    },
+    {
+      "path": "../types"
+    }
+  ]
+}

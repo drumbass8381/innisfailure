@@ -1,0 +1,82 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/apps/cli",
+    "paths": {
+      "@innisfailures/backtesting": ["../../packages/backtesting/src/index.ts"],
+      "@innisfailures/backtesting/*": ["../../packages/backtesting/src/*"],
+      "@innisfailures/bot": ["../../packages/bot/src/index.ts"],
+      "@innisfailures/bot/*": ["../../packages/bot/src/*"],
+      "@innisfailures/bot-processor": ["../../packages/bot-processor/src/index.ts"],
+      "@innisfailures/bot-processor/*": ["../../packages/bot-processor/src/*"],
+      "@innisfailures/bot-templates": ["../../packages/bot-templates/src/index.ts"],
+      "@innisfailures/bot-templates/*": ["../../packages/bot-templates/src/*"],
+      "@innisfailures/daemon": ["../../packages/daemon/src/index.ts"],
+      "@innisfailures/daemon/*": ["../../packages/daemon/src/*"],
+      "@innisfailures/db": ["../../packages/db/src/index.ts"],
+      "@innisfailures/db/*": ["../../packages/db/src/*"],
+      "@innisfailures/eslint/*": ["../../packages/eslint/*"],
+      "@innisfailures/exchanges": ["../../packages/exchanges/src/index.ts"],
+      "@innisfailures/exchanges/*": ["../../packages/exchanges/src/*"],
+      "@innisfailures/logger": ["../../packages/logger/src/index.ts"],
+      "@innisfailures/logger/*": ["../../packages/logger/src/*"],
+      "@innisfailures/processing": ["../../packages/processing/src/index.ts"],
+      "@innisfailures/processing/*": ["../../packages/processing/src/*"],
+      "@innisfailures/tools": ["../../packages/tools/src/index.ts"],
+      "@innisfailures/tools/*": ["../../packages/tools/src/*"],
+      "@innisfailures/trpc": ["../../packages/trpc/src/index.ts"],
+      "@innisfailures/trpc/*": ["../../packages/trpc/src/*"],
+      "@innisfailures/tsconfig/*": ["../../packages/tsconfig/*"],
+      "@innisfailures/types": ["../../packages/types/src/index.ts"],
+      "@innisfailures/types/*": ["../../packages/types/src/*"]
+    },
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*"],
+  "files": ["package.json"],
+  "references": [
+    {
+      "path": "../../packages/backtesting"
+    },
+    {
+      "path": "../../packages/bot"
+    },
+    {
+      "path": "../../packages/bot-processor"
+    },
+    {
+      "path": "../../packages/bot-templates"
+    },
+    {
+      "path": "../../packages/daemon"
+    },
+    {
+      "path": "../../packages/db"
+    },
+    {
+      "path": "../../packages/eslint"
+    },
+    {
+      "path": "../../packages/exchanges"
+    },
+    {
+      "path": "../../packages/logger"
+    },
+    {
+      "path": "../../packages/processing"
+    },
+    {
+      "path": "../../packages/tools"
+    },
+    {
+      "path": "../../packages/trpc"
+    },
+    {
+      "path": "../../packages/tsconfig"
+    },
+    {
+      "path": "../../packages/types"
+    }
+  ]
+}

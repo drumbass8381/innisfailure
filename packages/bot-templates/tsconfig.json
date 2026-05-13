@@ -1,0 +1,71 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/bot-templates",
+    "paths": {
+      "@innisfailures/bot-processor": [
+        "../bot-processor/src/index.ts"
+      ],
+      "@innisfailures/bot-processor/*": [
+        "../bot-processor/src/*"
+      ],
+      "@innisfailures/eslint/*": [
+        "../eslint/*"
+      ],
+      "@innisfailures/exchanges": [
+        "../exchanges/src/index.ts"
+      ],
+      "@innisfailures/exchanges/*": [
+        "../exchanges/src/*"
+      ],
+      "@innisfailures/logger": [
+        "../logger/src/index.ts"
+      ],
+      "@innisfailures/logger/*": [
+        "../logger/src/*"
+      ],
+      "@innisfailures/tools": [
+        "../tools/src/index.ts"
+      ],
+      "@innisfailures/tools/*": [
+        "../tools/src/*"
+      ],
+      "@innisfailures/tsconfig/*": [
+        "../tsconfig/*"
+      ],
+      "@innisfailures/types": [
+        "../types/src/index.ts"
+      ],
+      "@innisfailures/types/*": [
+        "../types/src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../bot-processor"
+    },
+    {
+      "path": "../eslint"
+    },
+    {
+      "path": "../exchanges"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../tools"
+    },
+    {
+      "path": "../tsconfig"
+    },
+    {
+      "path": "../types"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@innisfailures/tsconfig",
+  "version": "0.0.0",
+  "description": "TypeScript configuration for innisfailures",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/innisfailures/innisfailures.git"
+  },
+  "keywords": [
+    "tsconfig",
+    "innisfailures"
+  ],
+  "author": "bludnic",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/innisfailures/innisfailures/issues"
+  },
+  "homepage": "https://github.com/innisfailures/innisfailures/tree/master/packages/tsconfig"
+}

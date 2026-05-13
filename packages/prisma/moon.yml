@@ -1,0 +1,13 @@
+tasks:
+  typecheck:
+    command: tsc -b
+  migrate:
+    command: prisma migrate dev
+  deploy:
+    command: prisma migrate deploy
+  generate:
+    command: prisma generate
+  seed:
+    command: prisma db seed
+  format:
+    command: prisma format

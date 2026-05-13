@@ -1,0 +1,40 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/bot-store",
+    "paths": {
+      "@innisfailures/bot-processor": ["../bot-processor/src/index.ts"],
+      "@innisfailures/bot-processor/*": ["../bot-processor/src/*"],
+      "@innisfailures/db": ["../db/src/index.ts"],
+      "@innisfailures/db/*": ["../db/src/*"],
+      "@innisfailures/eslint/*": ["../eslint/*"],
+      "@innisfailures/event-bus": ["../event-bus/src/index.ts"],
+      "@innisfailures/event-bus/*": ["../event-bus/src/*"],
+      "@innisfailures/tsconfig/*": ["../tsconfig/*"],
+      "@innisfailures/types": ["../types/src/index.ts"],
+      "@innisfailures/types/*": ["../types/src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "../bot-processor"
+    },
+    {
+      "path": "../db"
+    },
+    {
+      "path": "../eslint"
+    },
+    {
+      "path": "../event-bus"
+    },
+    {
+      "path": "../tsconfig"
+    },
+    {
+      "path": "../types"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/bot-processor",
+    "paths": {
+      "@innisfailures/eslint/*": ["../eslint/*"],
+      "@innisfailures/exchanges": ["../exchanges/src/index.ts"],
+      "@innisfailures/exchanges/*": ["../exchanges/src/*"],
+      "@innisfailures/indicators": ["../indicators/src/index.ts"],
+      "@innisfailures/indicators/*": ["../indicators/src/*"],
+      "@innisfailures/tools": ["../tools/src/index.ts"],
+      "@innisfailures/tools/*": ["../tools/src/*"],
+      "@innisfailures/tsconfig/*": ["../tsconfig/*"],
+      "@innisfailures/types": ["../types/src/index.ts"],
+      "@innisfailures/types/*": ["../types/src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "../eslint"
+    },
+    {
+      "path": "../exchanges"
+    },
+    {
+      "path": "../indicators"
+    },
+    {
+      "path": "../tools"
+    },
+    {
+      "path": "../tsconfig"
+    },
+    {
+      "path": "../types"
+    }
+  ]
+}

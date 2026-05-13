@@ -1,0 +1,89 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/daemon",
+    "paths": {
+      "@innisfailures/bot": [
+        "../bot/src/index.ts"
+      ],
+      "@innisfailures/bot/*": [
+        "../bot/src/*"
+      ],
+      "@innisfailures/db": [
+        "../db/src/index.ts"
+      ],
+      "@innisfailures/db/*": [
+        "../db/src/*"
+      ],
+      "@innisfailures/eslint/*": [
+        "../eslint/*"
+      ],
+      "@innisfailures/logger": [
+        "../logger/src/index.ts"
+      ],
+      "@innisfailures/logger/*": [
+        "../logger/src/*"
+      ],
+      "@innisfailures/orchestrator": [
+        "../orchestrator/src/index.ts"
+      ],
+      "@innisfailures/orchestrator/*": [
+        "../orchestrator/src/*"
+      ],
+      "@innisfailures/solana-execution": [
+        "../solana-execution/src/index.ts"
+      ],
+      "@innisfailures/solana-execution/*": [
+        "../solana-execution/src/*"
+      ],
+      "@innisfailures/trpc": [
+        "../trpc/src/index.ts"
+      ],
+      "@innisfailures/trpc/*": [
+        "../trpc/src/*"
+      ],
+      "@innisfailures/tsconfig/*": [
+        "../tsconfig/*"
+      ],
+      "@innisfailures/types": [
+        "../types/src/index.ts"
+      ],
+      "@innisfailures/types/*": [
+        "../types/src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../bot"
+    },
+    {
+      "path": "../db"
+    },
+    {
+      "path": "../eslint"
+    },
+    {
+      "path": "../logger"
+    },
+    {
+      "path": "../orchestrator"
+    },
+    {
+      "path": "../solana-execution"
+    },
+    {
+      "path": "../trpc"
+    },
+    {
+      "path": "../tsconfig"
+    },
+    {
+      "path": "../types"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@innisfailures/prisma",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "postinstall": "prisma generate"
+  },
+  "author": "bludnic",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@innisfailures/tsconfig": "workspace:*",
+    "@types/node": "^22.10.2",
+    "ts-node": "10.9.2",
+    "tsx": "^4.19.2",
+    "typescript": "5.7.2"
+  },
+  "dependencies": {
+    "@innisfailures/tools": "workspace:*",
+    "@innisfailures/types": "workspace:*",
+    "@prisma/client": "6.0.1",
+    "prisma": "6.0.1",
+    "zod": "4.4.3",
+    "zod-prisma-types": "3.2.1"
+  },
+  "prisma": {
+    "schema": "src/schema.prisma",
+    "seed": "node seed.mjs"
+  }
+}

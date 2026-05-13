@@ -1,0 +1,21 @@
+{
+  "name": "@innisfailures/orchestrator",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Meta-orchestrator, optional LLM policy schema, and agent fleet types for innisfailures",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "author": "bludnic",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@innisfailures/eslint": "workspace:*",
+    "@innisfailures/tsconfig": "workspace:*",
+    "@types/node": "^22.10.2",
+    "eslint": "8.57.0",
+    "typescript": "5.7.2"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  }
+}

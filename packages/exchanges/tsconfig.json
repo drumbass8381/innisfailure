@@ -1,0 +1,53 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/exchanges",
+    "paths": {
+      "@innisfailures/db": [
+        "../db/src/index.ts"
+      ],
+      "@innisfailures/db/*": [
+        "../db/src/*"
+      ],
+      "@innisfailures/eslint/*": [
+        "../eslint/*"
+      ],
+      "@innisfailures/tools": [
+        "../tools/src/index.ts"
+      ],
+      "@innisfailures/tools/*": [
+        "../tools/src/*"
+      ],
+      "@innisfailures/tsconfig/*": [
+        "../tsconfig/*"
+      ],
+      "@innisfailures/types": [
+        "../types/src/index.ts"
+      ],
+      "@innisfailures/types/*": [
+        "../types/src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../db"
+    },
+    {
+      "path": "../eslint"
+    },
+    {
+      "path": "../tools"
+    },
+    {
+      "path": "../tsconfig"
+    },
+    {
+      "path": "../types"
+    }
+  ]
+}

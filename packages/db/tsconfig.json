@@ -1,0 +1,44 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/db",
+    "paths": {
+      "@innisfailures/eslint/*": [
+        "../eslint/*"
+      ],
+      "@innisfailures/prisma": [
+        "../prisma/src/index.ts"
+      ],
+      "@innisfailures/prisma/*": [
+        "../prisma/src/*"
+      ],
+      "@innisfailures/tsconfig/*": [
+        "../tsconfig/*"
+      ],
+      "@innisfailures/types": [
+        "../types/src/index.ts"
+      ],
+      "@innisfailures/types/*": [
+        "../types/src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../eslint"
+    },
+    {
+      "path": "../prisma"
+    },
+    {
+      "path": "../tsconfig"
+    },
+    {
+      "path": "../types"
+    }
+  ]
+}

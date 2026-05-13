@@ -1,0 +1,36 @@
+{
+  "name": "@innisfailures/trpc",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "author": "bludnic",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@innisfailures/eslint": "workspace:*",
+    "@innisfailures/tsconfig": "workspace:*",
+    "@innisfailures/types": "workspace:*",
+    "@types/node": "^22.10.2",
+    "eslint": "8.57.0",
+    "typescript": "5.7.2"
+  },
+  "dependencies": {
+    "@innisfailures/backtesting": "workspace:*",
+    "@innisfailures/bot": "workspace:*",
+    "@innisfailures/bot-processor": "workspace:*",
+    "@innisfailures/bot-templates": "workspace:*",
+    "@innisfailures/db": "workspace:*",
+    "@innisfailures/event-bus": "workspace:*",
+    "@innisfailures/exchanges": "workspace:*",
+    "@innisfailures/prisma": "workspace:*",
+    "@innisfailures/processing": "workspace:*",
+    "@innisfailures/tools": "workspace:*",
+    "@trpc/server": "^10.45.2",
+    "ccxt": "4.4.41",
+    "superjson": "^2.2.2",
+    "zod": "4.4.3",
+    "zod-to-json-schema": "^3.24.1"
+  }
+}

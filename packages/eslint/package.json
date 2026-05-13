@@ -1,0 +1,31 @@
+{
+  "name": "@innisfailures/eslint",
+  "description": "ESLint configuration for innisfailures",
+  "version": "0.0.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bludnic/innisfailures.git"
+  },
+  "files": [
+    "module.js",
+    "next.js"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.16.0",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "8.57.0",
+    "typescript": "5.7.2",
+    "typescript-eslint": "^7.18.0"
+  },
+  "keywords": [
+    "tsconfig",
+    "innisfailures"
+  ],
+  "author": "bludnic",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bludnic/innisfailures/issues"
+  },
+  "homepage": "https://github.com/bludnic/innisfailures/tree/master/packages/eslint-config"
+}

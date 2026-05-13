@@ -1,0 +1,43 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/bot",
+    "paths": {
+      "@innisfailures/bot-store": ["../bot-store/src/index.ts"],
+      "@innisfailures/bot-store/*": ["../bot-store/src/*"],
+      "@innisfailures/bot-templates": ["../bot-templates/src/index.ts"],
+      "@innisfailures/bot-templates/*": ["../bot-templates/src/*"],
+      "@innisfailures/db": ["../db/src/index.ts"],
+      "@innisfailures/db/*": ["../db/src/*"],
+      "@innisfailures/eslint/*": ["../eslint/*"],
+      "@innisfailures/event-bus": ["../event-bus/src/index.ts"],
+      "@innisfailures/event-bus/*": ["../event-bus/src/*"],
+      "@innisfailures/exchanges": ["../exchanges/src/index.ts"],
+      "@innisfailures/exchanges/*": ["../exchanges/src/*"],
+      "@innisfailures/logger": ["../logger/src/index.ts"],
+      "@innisfailures/logger/*": ["../logger/src/*"],
+      "@innisfailures/processing": ["../processing/src/index.ts"],
+      "@innisfailures/processing/*": ["../processing/src/*"],
+      "@innisfailures/tools": ["../tools/src/index.ts"],
+      "@innisfailures/tools/*": ["../tools/src/*"],
+      "@innisfailures/tsconfig/*": ["../tsconfig/*"],
+      "@innisfailures/types": ["../types/src/index.ts"],
+      "@innisfailures/types/*": ["../types/src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../bot-store" },
+    { "path": "../bot-templates" },
+    { "path": "../db" },
+    { "path": "../eslint" },
+    { "path": "../event-bus" },
+    { "path": "../exchanges" },
+    { "path": "../logger" },
+    { "path": "../processing" },
+    { "path": "../tools" },
+    { "path": "../tsconfig" },
+    { "path": "../types" }
+  ]
+}

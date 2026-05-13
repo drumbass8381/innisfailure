@@ -1,0 +1,76 @@
+{
+  "name": "innisfailures",
+  "version": "1.0.0-beta.29",
+  "description": "innisfailures — open-source crypto trading bot to automate strategies on cryptocurrency exchanges.",
+  "keywords": [
+    "bot",
+    "crypto",
+    "trading",
+    "algotrading",
+    "technical-indicators",
+    "custom-strategy",
+    "dca-bot",
+    "grid-bot",
+    "rsi-strategy"
+  ],
+  "type": "module",
+  "main": "dist/main.mjs",
+  "types": "dist/main.d.ts",
+  "exports": {
+    ".": "./dist/main.mjs"
+  },
+  "bin": {
+    "innisfailures": "./bin/innisfailures.mjs"
+  },
+  "author": "bludnic",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bludnic/innisfailures.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bludnic/innisfailures/issues"
+  },
+  "homepage": "https://github.com/bludnic/innisfailures#readme",
+  "devDependencies": {
+    "@innisfailures/eslint": "workspace:*",
+    "@innisfailures/tsconfig": "workspace:*",
+    "@innisfailures/types": "workspace:*",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.2",
+    "dts-bundle-generator": "^9.5.1",
+    "esbuild": "^0.23.1",
+    "eslint": "8.57.0",
+    "rimraf": "^6.0.1",
+    "ts-loader": "^9.5.1",
+    "ts-node": "10.9.2",
+    "tsup": "^8.3.5",
+    "typescript": "5.7.2"
+  },
+  "dependencies": {
+    "@innisfailures/backtesting": "workspace:*",
+    "@innisfailures/bot": "workspace:*",
+    "@innisfailures/bot-processor": "workspace:*",
+    "@innisfailures/bot-templates": "workspace:*",
+    "@innisfailures/daemon": "workspace:*",
+    "@innisfailures/db": "workspace:*",
+    "@innisfailures/exchanges": "workspace:*",
+    "@innisfailures/logger": "workspace:*",
+    "@innisfailures/processing": "workspace:*",
+    "@innisfailures/tools": "workspace:*",
+    "@innisfailures/trpc": "workspace:*",
+    "@prisma/client": "6.0.1",
+    "@trpc/client": "^10.45.2",
+    "@trpc/server": "^10.45.2",
+    "ccxt": "4.4.41",
+    "commander": "^12.1.0",
+    "execa": "^9.5.2",
+    "express": "^4.21.2",
+    "json5": "^2.2.3",
+    "pino": "^9.5.0",
+    "pino-pretty": "^11.3.0",
+    "random-words": "^2.0.1",
+    "superjson": "^2.2.2",
+    "zod": "4.4.3"
+  }
+}

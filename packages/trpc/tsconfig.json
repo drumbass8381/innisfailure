@@ -1,0 +1,125 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/trpc",
+    "paths": {
+      "@innisfailures/bot-processor": [
+        "../bot-processor/src/index.ts"
+      ],
+      "@innisfailures/bot-processor/*": [
+        "../bot-processor/src/*"
+      ],
+      "@innisfailures/bot-templates": [
+        "../bot-templates/src/index.ts"
+      ],
+      "@innisfailures/bot-templates/*": [
+        "../bot-templates/src/*"
+      ],
+      "@innisfailures/db": [
+        "../db/src/index.ts"
+      ],
+      "@innisfailures/db/*": [
+        "../db/src/*"
+      ],
+      "@innisfailures/eslint/*": [
+        "../eslint/*"
+      ],
+      "@innisfailures/event-bus": [
+        "../event-bus/src/index.ts"
+      ],
+      "@innisfailures/event-bus/*": [
+        "../event-bus/src/*"
+      ],
+      "@innisfailures/exchanges": [
+        "../exchanges/src/index.ts"
+      ],
+      "@innisfailures/exchanges/*": [
+        "../exchanges/src/*"
+      ],
+      "@innisfailures/prisma": [
+        "../prisma/src/index.ts"
+      ],
+      "@innisfailures/prisma/*": [
+        "../prisma/src/*"
+      ],
+      "@innisfailures/processing": [
+        "../processing/src/index.ts"
+      ],
+      "@innisfailures/processing/*": [
+        "../processing/src/*"
+      ],
+      "@innisfailures/tools": [
+        "../tools/src/index.ts"
+      ],
+      "@innisfailures/tools/*": [
+        "../tools/src/*"
+      ],
+      "@innisfailures/tsconfig/*": [
+        "../tsconfig/*"
+      ],
+      "@innisfailures/types": [
+        "../types/src/index.ts"
+      ],
+      "@innisfailures/types/*": [
+        "../types/src/*"
+      ],
+      "@innisfailures/backtesting": [
+        "../backtesting/src/index.ts"
+      ],
+      "@innisfailures/backtesting/*": [
+        "../backtesting/src/*"
+      ],
+      "@innisfailures/bot": [
+        "../bot/src/index.ts"
+      ],
+      "@innisfailures/bot/*": [
+        "../bot/src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../backtesting"
+    },
+    {
+      "path": "../bot"
+    },
+    {
+      "path": "../bot-processor"
+    },
+    {
+      "path": "../bot-templates"
+    },
+    {
+      "path": "../db"
+    },
+    {
+      "path": "../eslint"
+    },
+    {
+      "path": "../event-bus"
+    },
+    {
+      "path": "../exchanges"
+    },
+    {
+      "path": "../prisma"
+    },
+    {
+      "path": "../processing"
+    },
+    {
+      "path": "../tools"
+    },
+    {
+      "path": "../tsconfig"
+    },
+    {
+      "path": "../types"
+    }
+  ]
+}

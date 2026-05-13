@@ -1,0 +1,3 @@
+# SQLite artifacts must not be scanned as Moon project roots
+packages/*.db
+packages/*.db-journal

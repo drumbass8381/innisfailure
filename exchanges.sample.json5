@@ -1,0 +1,21 @@
+{
+  DEFAULT: {
+    name: "OKX Live",
+    apiKey: "exchange_api_key",
+    secretKey: "exchange_secret_key",
+    password: "exchange_password",
+    exchangeCode: "OKX", // OKX | BYBIT | BITGET | BINANCE | KRAKEN | COINBASE | GATEIO
+    isDemoAccount: false,
+    isPaperAccount: false,
+  },
+  // Paper CEX: public market data from the exchange; orders/balances stored in PaperOrder / PaperAsset.
+  PAPER: {
+    name: "OKX Paper",
+    apiKey: "paper_public_only",
+    secretKey: "paper_public_only",
+    password: null,
+    exchangeCode: "OKX",
+    isDemoAccount: false,
+    isPaperAccount: true,
+  },
+}

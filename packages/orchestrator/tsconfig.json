@@ -1,0 +1,13 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/orchestrator",
+    "paths": {
+      "@innisfailures/eslint/*": ["../eslint/*"],
+      "@innisfailures/tsconfig/*": ["../tsconfig/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "references": [{ "path": "../eslint" }, { "path": "../tsconfig" }]
+}
