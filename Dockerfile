@@ -56,6 +56,7 @@ COPY --from=build /app/packages/prisma/seed.mjs ./packages/prisma/seed.mjs
 
 # Copy the entrypoint script to run migrations before starting the app
 COPY bin/docker-entry.sh /app/bin/docker-entry.sh
+RUN chmod +x /app/bin/docker-entry.sh
 ENTRYPOINT ["/app/bin/docker-entry.sh"]
 
 WORKDIR /app/apps/cli
