@@ -61,6 +61,8 @@ RUN apt-get update \
 
 # Default SQLite path (matches docker-compose / entrypoint). Override in Railway if needed.
 ENV DATABASE_URL=file:/app/data/dev.db
+# Railway (and Docker) must accept external connections — not 127.0.0.1 only.
+ENV HOST=0.0.0.0
 
 COPY --from=build /app/apps/cli ./apps/cli
 COPY --from=build /app/node_modules ./node_modules

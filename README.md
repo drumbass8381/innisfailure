@@ -170,9 +170,9 @@ For a temporary public URL (demo), deploy from this repo using the root `Dockerf
 
 | Name | Value |
 |------|--------|
-| `HOST` | `0.0.0.0` |
 | `ADMIN_PASSWORD` | A strong password (used to access the UI; do not commit it) |
-| `DATABASE_URL` | `file:/app/data/dev.db` (matches the Docker image; SQLite under `/app/data`) |
+
+The Docker image already sets **`HOST=0.0.0.0`** and **`DATABASE_URL=file:/app/data/dev.db`**. Override those in Railway only if you need different values.
 
 Railway injects **`PORT`** automatically; do not override it unless you know you need to.
 
