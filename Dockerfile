@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Install moon binary
 RUN npm install -g @moonrepo/cli@1.28.3
-RUN npm install -g pnpm
+RUN npm install -g pnpm@9
 
 #### SKELETON
 FROM base AS skeleton
