@@ -4,9 +4,6 @@
   </a>
 </p>
 
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bludnic/innisfailures/dev.yml)](https://github.com/bludnic/innisfailures/actions)
-[![NPM Version](https://img.shields.io/npm/v/innisfailures?color=blue)](https://www.npmjs.com/package/innisfailures)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/bludnic/innisfailures)](https://github.com/bludnic/innisfailures/graphs/contributors)
 
 This is a self-hosted cryptocurrency trading bot, featuring built-in and highly customizable strategies, integration with technical indicators, high-frequency trading, and cross-exchange trading with support for 100+ exchanges via CCXT.
 
