@@ -3,9 +3,8 @@
 
 generator client {
   provider      = "prisma-client-js"
-  // Railway / most cloud VMs are linux/amd64 Alpine → need openssl-3 musl engine (not default libssl 1.1).
-  // Keep arm64 for Apple Silicon dev and Docker builds on M-series.
-  binaryTargets = ["native", "linux-musl-openssl-3.0.x", "linux-musl-arm64-openssl-3.0.x"]
+  // Docker image uses Debian bookworm (glibc + OpenSSL 3). Include musl targets for optional Alpine/local musl builds.
+  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-musl-openssl-3.0.x", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 generator zod {

@@ -1,10 +1,16 @@
 #### BASE
 # Node 22+ required: workspace pnpm uses built-in `node:sqlite` (unavailable on Node 20).
-FROM node:22-alpine AS base
+# Debian (not Alpine): Prisma's default linux-musl engine needs libssl 1.1, which current Alpine
+# does not ship; bookworm's OpenSSL 3 matches Prisma's debian-openssl-3 query engines.
+FROM node:22-bookworm-slim AS base
 
 ENV MOON_TOOLCHAIN_FORCE_GLOBALS=true
 
 WORKDIR /app
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends ca-certificates openssl \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install moon binary
 RUN npm install -g @moonrepo/cli@1.28.3
@@ -36,8 +42,8 @@ RUN moon docker setup
 # Copy source files
 COPY --from=skeleton /app/.moon/docker/sources .
 
-# Client engines must match final schema (binaryTargets); full sources land after `moon docker setup`.
-RUN node /app/node_modules/prisma/build/index.js generate --schema /app/packages/prisma/src/schema.prisma
+# Regenerate Prisma client + zod in the prisma package context (PATH includes zod-prisma-types).
+RUN DATABASE_URL="file:/tmp/prisma-generate.db" moon run prisma:generate
 
 # Build something (optional)
 RUN moon run cli:build
@@ -46,8 +52,12 @@ RUN moon run cli:build
 RUN moon docker prune
 
 ##### RUNNER
-FROM node:22-alpine AS runner
+FROM node:22-bookworm-slim AS runner
 WORKDIR /app
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends ca-certificates openssl \
+  && rm -rf /var/lib/apt/lists/*
 
 # Default SQLite path (matches docker-compose / entrypoint). Override in Railway if needed.
 ENV DATABASE_URL=file:/app/data/dev.db
