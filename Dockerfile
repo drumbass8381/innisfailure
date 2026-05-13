@@ -36,6 +36,9 @@ RUN moon docker setup
 # Copy source files
 COPY --from=skeleton /app/.moon/docker/sources .
 
+# Client engines must match final schema (binaryTargets); full sources land after `moon docker setup`.
+RUN node /app/node_modules/prisma/build/index.js generate --schema /app/packages/prisma/src/schema.prisma
+
 # Build something (optional)
 RUN moon run cli:build
 
@@ -45,6 +48,9 @@ RUN moon docker prune
 ##### RUNNER
 FROM node:22-alpine AS runner
 WORKDIR /app
+
+# Default SQLite path (matches docker-compose / entrypoint). Override in Railway if needed.
+ENV DATABASE_URL=file:/app/data/dev.db
 
 COPY --from=build /app/apps/cli ./apps/cli
 COPY --from=build /app/node_modules ./node_modules
