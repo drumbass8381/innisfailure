@@ -45,6 +45,9 @@
       "path": "packages/orchestrator"
     },
     {
+      "path": "packages/agentic-intelligence"
+    },
+    {
       "path": "packages/prisma"
     },
     {

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whale wallets — innisfailures</title>
+    <link rel="stylesheet" href="/hub/hub.css" />
+  </head>
+  <body>
+    <script type="module">
+      import { api, fmtNum, mountLayout, setError } from "/hub/hub.js";
+
+      mountLayout(
+        "whales",
+        "Whale wallet watching",
+        "Track large transfers; connect Helius/Nansen feeds via whale source adapters.",
+        "",
+      );
+
+      async function load() {
+        try {
+          const [watches, events] = await Promise.all([
+            api("/api/hub/whales/watches"),
+            api("/api/hub/whales/events"),
+          ]);
+
+          document.getElementById("content").innerHTML = `
+            <div class="row">
+              <input id="chain" placeholder="chain (solana)" value="solana" />
+              <input id="addr" placeholder="wallet address" style="min-width:280px" />
+              <input id="label" placeholder="label" />
+              <input id="min" type="number" placeholder="min USD alert" />
+              <button class="btn" id="add">Add watch</button>
+            </div>
+            <h2 style="font-size:1.1rem">Watched wallets</h2>
+            <table><thead><tr><th>Chain</th><th>Address</th><th>Label</th><th>Min USD</th><th>Enabled</th></tr></thead>
+            <tbody>${watches
+              .map(
+                (w) => `<tr><td>${w.chain}</td><td>${w.address}</td><td>${w.label || ""}</td><td>${w.minUsdAlert ?? "—"}</td><td>${w.enabled}</td></tr>`,
+              )
+              .join("")}</tbody></table>
+            <h2 style="margin-top:1.5rem;font-size:1.1rem">Recent activity</h2>
+            <table><thead><tr><th>Time</th><th>Wallet</th><th>Dir</th><th>USD</th><th>Token</th></tr></thead>
+            <tbody>${events
+              .map(
+                (e) => `<tr>
+                  <td>${new Date(e.detectedAt).toLocaleString()}</td>
+                  <td>${e.watch?.label || e.watch?.address || e.watchId}</td>
+                  <td>${e.direction}</td>
+                  <td>${fmtNum(e.amountUsd, 0)}</td>
+                  <td>${e.tokenSymbol || ""}</td>
+                </tr>`,
+              )
+              .join("")}</tbody></table>`;
+
+          document.getElementById("add").onclick = async () => {
+            await api("/api/hub/whales/watch", {
+              method: "POST",
+              body: JSON.stringify({
+                chain: document.getElementById("chain").value,
+                address: document.getElementById("addr").value,
+                label: document.getElementById("label").value || undefined,
+                minUsdAlert: Number(document.getElementById("min").value) || undefined,
+              }),
+            });
+            load();
+          };
+        } catch (e) {
+          setError(e.message);
+        }
+      }
+
+      load();
+    </script>
+  </body>
+</html>

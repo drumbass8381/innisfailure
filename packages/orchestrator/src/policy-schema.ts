@@ -22,6 +22,22 @@ export const orchestratorCommandSchema = z.discriminatedUnion("action", [
     reason: z.string().max(500).optional(),
   }),
   z.object({
+    action: z.literal("pause_on_signal"),
+    agentLabel: z.string().min(1),
+    signalKind: z.enum(["semantic_news", "whale_transfer", "composite"]),
+    minScore: z.number().min(0).max(1),
+    reason: z.string().max(500).optional(),
+  }),
+  z.object({
+    action: z.literal("propose_trade"),
+    agentLabel: z.string().min(1),
+    symbol: z.string().min(1),
+    side: z.enum(["buy", "sell"]),
+    quantity: z.number().positive().optional(),
+    notionalUsd: z.number().positive().optional(),
+    rationale: z.string().max(2000),
+  }),
+  z.object({
     action: z.literal("noop"),
     reason: z.string().max(500).optional(),
   }),

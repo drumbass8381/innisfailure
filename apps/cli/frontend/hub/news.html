@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Semantic news — innisfailures</title>
+    <link rel="stylesheet" href="/hub/hub.css" />
+  </head>
+  <body>
+    <script type="module">
+      import { api, fmtNum, mountLayout, setError } from "/hub/hub.js";
+
+      mountLayout(
+        "news",
+        "Semantic news",
+        "Headlines scored against agent scopes (embedding similarity + symbols).",
+        "<p>Loading…</p>",
+      );
+
+      try {
+        const news = await api("/api/hub/news");
+        document.getElementById("content").innerHTML = `
+          <table>
+            <thead><tr><th>Time</th><th>Source</th><th>Headline</th><th>Score</th><th>Sentiment</th></tr></thead>
+            <tbody>${news
+              .map(
+                (n) => `<tr>
+                  <td>${new Date(n.publishedAt).toLocaleString()}</td>
+                  <td>${n.source}</td>
+                  <td>${n.headline}</td>
+                  <td>${n.relevanceScore != null ? fmtNum(n.relevanceScore, 2) : "—"}</td>
+                  <td>${n.sentiment != null ? fmtNum(n.sentiment, 2) : "—"}</td>
+                </tr>`,
+              )
+              .join("")}</tbody>
+          </table>`;
+      } catch (e) {
+        setError(e.message);
+      }
+    </script>
+  </body>
+</html>

@@ -4,6 +4,12 @@
     "baseUrl": ".",
     "outDir": "../../dts/packages/trpc",
     "paths": {
+      "@innisfailures/agentic-intelligence": [
+        "../agentic-intelligence/src/index.ts"
+      ],
+      "@innisfailures/agentic-intelligence/*": [
+        "../agentic-intelligence/src/*"
+      ],
       "@innisfailures/bot-processor": [
         "../bot-processor/src/index.ts"
       ],
@@ -90,6 +96,9 @@
     },
     {
       "path": "../bot-processor"
+    },
+    {
+      "path": "../agentic-intelligence"
     },
     {
       "path": "../bot-templates"

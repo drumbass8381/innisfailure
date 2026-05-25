@@ -9,6 +9,7 @@ import {
   symbolsRouter,
   candlesRouter,
   orderRouter,
+  intelligenceRouter,
 } from "./private/router.js";
 import { publicRouter } from "./public/router.js";
 
@@ -22,6 +23,7 @@ export const appRouter = trpc.router({
   smartTrade: smartTradeRouter,
   order: orderRouter,
   cron: cronRouter,
+  intelligence: intelligenceRouter,
   public: publicRouter,
 });
 

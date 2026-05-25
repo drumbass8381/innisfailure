@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agentic trading — innisfailures</title>
+    <link rel="stylesheet" href="/hub/hub.css" />
+  </head>
+  <body>
+    <script type="module">
+      import { api, fmtNum, mountLayout, setError } from "/hub/hub.js";
+
+      mountLayout(
+        "agentic",
+        "Agentic trading",
+        "Supervisor settings, trade intents, and manual policy ticks.",
+        "",
+      );
+
+      async function load() {
+        try {
+          const [settings, intents, agents] = await Promise.all([
+            api("/api/hub/settings"),
+            api("/api/hub/intents"),
+            api("/api/hub/agents"),
+          ]);
+
+          document.getElementById("content").innerHTML = `
+            <div class="row">
+              <label><input type="checkbox" id="en" ${settings.enabled ? "checked" : ""} /> Enable supervisor</label>
+              <label><input type="checkbox" id="news" ${settings.newsEnabled ? "checked" : ""} /> News</label>
+              <label><input type="checkbox" id="whale" ${settings.whaleWatchingEnabled ? "checked" : ""} /> Whales</label>
+              <button class="btn" id="save">Save settings</button>
+              <button class="btn secondary" id="tick">Run tick now</button>
+            </div>
+            <div class="grid">
+              <div class="card"><h3>Agents</h3><div class="value">${agents.length}</div></div>
+              <div class="card"><h3>Min news score</h3><div class="value">${fmtNum(settings.minNewsRelevanceScore, 2)}</div></div>
+              <div class="card"><h3>Min whale USD</h3><div class="value">${fmtNum(settings.minWhaleUsdNotional, 0)}</div></div>
+            </div>
+            <h2 style="margin-top:1.5rem;font-size:1.1rem">Trade intents</h2>
+            <table><thead><tr><th>Agent</th><th>Symbol</th><th>Side</th><th>Status</th><th>Rationale</th><th></th></tr></thead>
+            <tbody id="intents"></tbody></table>`;
+
+          const tbody = document.getElementById("intents");
+          for (const i of intents) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `<td>${i.agentLabel}</td><td>${i.symbol}</td><td>${i.side}</td><td>${i.status}</td><td>${i.rationale}</td><td></td>`;
+            if (i.status === "pending") {
+              const td = tr.lastElementChild;
+              const ok = document.createElement("button");
+              ok.className = "btn";
+              ok.textContent = "Approve";
+              ok.onclick = async () => {
+                await api("/api/hub/intents/resolve", {
+                  method: "POST",
+                  body: JSON.stringify({ id: i.id, status: "approved" }),
+                });
+                load();
+              };
+              const no = document.createElement("button");
+              no.className = "btn secondary";
+              no.textContent = "Reject";
+              no.onclick = async () => {
+                await api("/api/hub/intents/resolve", {
+                  method: "POST",
+                  body: JSON.stringify({ id: i.id, status: "rejected" }),
+                });
+                load();
+              };
+              td.append(ok, no);
+            }
+            tbody.append(tr);
+          }
+
+          document.getElementById("save").onclick = async () => {
+            await api("/api/hub/settings", {
+              method: "POST",
+              body: JSON.stringify({
+                enabled: document.getElementById("en").checked,
+                newsEnabled: document.getElementById("news").checked,
+                whaleWatchingEnabled: document.getElementById("whale").checked,
+              }),
+            });
+            load();
+          };
+          document.getElementById("tick").onclick = async () => {
+            await api("/api/hub/tick", { method: "POST" });
+            load();
+          };
+        } catch (e) {
+          setError(e.message);
+        }
+      }
+
+      load();
+    </script>
+  </body>
+</html>

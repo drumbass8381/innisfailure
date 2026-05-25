@@ -1,5 +1,6 @@
 import { getOrCreateDefaultOwnerUser, xprisma } from "@innisfailures/db";
 import { logger } from "@innisfailures/logger";
+import { getOrCreateSettings } from "@innisfailures/agentic-intelligence";
 import { solanaSettingsLogFields } from "@innisfailures/solana-execution";
 
 async function ensureDefaultPaperAssets(): Promise<void> {
@@ -25,6 +26,16 @@ export async function bootstrapInfrastructure(): Promise<void> {
   logger.info({ ownerId: owner.id }, "default_owner_user_ready");
 
   await ensureDefaultPaperAssets();
+
+  const agentic = await getOrCreateSettings();
+  logger.info(
+    {
+      enabled: agentic.enabled,
+      newsEnabled: agentic.newsEnabled,
+      whaleWatchingEnabled: agentic.whaleWatchingEnabled,
+    },
+    "agentic_intelligence_settings_ready",
+  );
 
   let sol = await xprisma.solanaChainSettings.findFirst();
   if (!sol) {

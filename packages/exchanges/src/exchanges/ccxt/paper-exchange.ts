@@ -44,6 +44,7 @@ import {
 import { PaperOrder, xprisma } from "@innisfailures/db";
 import { CCXTExchange } from "./exchange.js";
 import { applyCexPaperFillLedger } from "./paper-ledger.js";
+import { formatPaperCexFill, getPaperSymbolBalances } from "./paper-trading-log.js";
 
 const ORDER_PLACEMENT_DELAY = 100;
 const ORDER_FULFILLMENT_DELAY = 200;
@@ -113,7 +114,16 @@ export class PaperExchange extends CCXTExchange {
             });
             this.openOrders = this.openOrders.filter((openOrder) => openOrder.id !== order.id); // remove from open orders
             console.log(
-              `[${this.exchangeCode} Paper] BUY order ID:${order.id} filled at price ${ticker.ask} ${order.symbol}`,
+              formatPaperCexFill({
+                exchangeCode: this.exchangeCode,
+                orderId: order.id,
+                symbol: order.symbol,
+                side: "buy",
+                quantity: order.quantity,
+                filledPrice: ticker.ask!,
+                fee: order.fee,
+                balances: await getPaperSymbolBalances(order.symbol),
+              }),
             );
 
             this.emitOrder(filledOrder);
@@ -139,7 +149,16 @@ export class PaperExchange extends CCXTExchange {
             });
             this.openOrders = this.openOrders.filter((openOrder) => openOrder.id !== order.id); // remove from open orders
             console.log(
-              `[${this.exchangeCode} Paper] SELL order ID:${order.id} filled at price ${ticker.bid} ${order.symbol}`,
+              formatPaperCexFill({
+                exchangeCode: this.exchangeCode,
+                orderId: order.id,
+                symbol: order.symbol,
+                side: "sell",
+                quantity: order.quantity,
+                filledPrice: ticker.bid!,
+                fee: order.fee,
+                balances: await getPaperSymbolBalances(order.symbol),
+              }),
             );
 
             this.emitOrder(filledOrder);
@@ -306,6 +325,19 @@ export class PaperExchange extends CCXTExchange {
 
       return updated;
     });
+
+    console.log(
+      formatPaperCexFill({
+        exchangeCode: this.exchangeCode,
+        orderId: filledOrder.id,
+        symbol: params.symbol,
+        side: params.side,
+        quantity: params.quantity,
+        filledPrice,
+        fee: order.fee,
+        balances: await getPaperSymbolBalances(params.symbol),
+      }),
+    );
 
     setTimeout(() => {
       this.emitOrder(order);

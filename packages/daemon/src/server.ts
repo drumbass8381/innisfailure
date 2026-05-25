@@ -6,6 +6,7 @@ import fastifyStatic from "@fastify/static";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import { appRouter } from "@innisfailures/trpc";
 import { createContext } from "./trpc.js";
+import { registerHubApi } from "./hub-api.js";
 
 // Path to the current file
 const __filename = fileURLToPath(import.meta.url);
@@ -45,6 +46,8 @@ export const createServer = (params: CreateServerOptions) => {
       createContext,
     },
   });
+
+  void registerHubApi(fastify);
 
   return {
     app: fastify,

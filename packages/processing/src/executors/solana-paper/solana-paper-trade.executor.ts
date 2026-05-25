@@ -82,7 +82,11 @@ export class SolanaPaperTradeExecutor implements ISmartTradeExecutor {
       },
     });
 
-    const quote = pipeline.quote as { outAmount?: string; inAmount?: string } | null;
+    const quote = pipeline.quote as {
+      outAmount?: string;
+      inAmount?: string;
+      priceImpactPct?: string;
+    } | null;
     const outAmt = quote?.outAmount ? Number(quote.outAmount) : NaN;
     const inAmt = quote?.inAmount ? Number(quote.inAmount) : NaN;
     const syntheticPrice =
@@ -113,8 +117,17 @@ export class SolanaPaperTradeExecutor implements ISmartTradeExecutor {
         smartTradeId: this.smartTrade.id,
         orderId: entryOrder.id,
         exchangeOrderId,
+        symbol: this.smartTrade.symbol,
+        inputMint: parsed.inputMint,
+        outputMint: parsed.outputMint,
+        amountRaw: parsed.amount,
+        syntheticPrice,
+        inAmount: quote?.inAmount,
+        outAmount: quote?.outAmount,
+        priceImpactPct: quote?.priceImpactPct,
+        slippageBps: settings.defaultSlippageBps,
       },
-      "Solana paper market entry filled (synthetic price from quote ratio).",
+      `Solana paper entry filled @ ${syntheticPrice} (quote ratio; no on-chain send).`,
     );
 
     return true;

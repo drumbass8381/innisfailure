@@ -315,3 +315,88 @@ model PolicyAuditLog {
   error      String?
   createdAt  DateTime @default(now())
 }
+
+/// Global toggles for agentic trading, semantic news, and whale watching.
+model AgenticIntelligenceSettings {
+  id                     Int      @id @default(autoincrement())
+  enabled                Boolean  @default(false)
+  newsEnabled            Boolean  @default(true)
+  whaleWatchingEnabled   Boolean  @default(true)
+  tickIntervalMs         Int      @default(60000)
+  minNewsRelevanceScore  Float    @default(0.55)
+  minWhaleUsdNotional    Float    @default(100000)
+  configJson             String   @default("{}")
+  updatedAt              DateTime @updatedAt
+}
+
+/// Ingested headline/article for semantic matching against agent scopes.
+model SemanticNewsItem {
+  id             Int      @id @default(autoincrement())
+  externalId     String?  @unique
+  source         String
+  headline       String
+  summary        String?
+  body           String?
+  publishedAt    DateTime
+  symbolsJson    String   @default("[]")
+  embeddingJson  String?
+  sentiment      Float?
+  relevanceScore Float?
+  ingestedAt     DateTime @default(now())
+}
+
+/// Wallet tracked for large transfers (whale alerts).
+model WhaleWalletWatch {
+  id          Int                  @id @default(autoincrement())
+  chain       String
+  address     String
+  label       String?
+  enabled     Boolean              @default(true)
+  minUsdAlert Float?
+  tagsJson    String               @default("[]")
+  createdAt   DateTime             @default(now())
+  events      WhaleActivityEvent[]
+
+  @@unique([chain, address])
+}
+
+model WhaleActivityEvent {
+  id          Int              @id @default(autoincrement())
+  watchId     Int
+  watch       WhaleWalletWatch   @relation(fields: [watchId], references: [id], onDelete: Cascade)
+  txSignature String?
+  direction   String
+  tokenSymbol String?
+  amountUsd   Float?
+  amountRaw   String?
+  detectedAt  DateTime         @default(now())
+  processed   Boolean          @default(false)
+}
+
+/// Normalized signal emitted by news/whale pipelines for agentic trading.
+model MarketSignal {
+  id          Int      @id @default(autoincrement())
+  kind        String
+  sourceId    String?
+  agentLabel  String?
+  symbol      String?
+  score       Float
+  payloadJson String
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime?
+}
+
+/// Proposed trade from the agentic supervisor (human approval when policy requires it).
+model AgenticTradeIntent {
+  id            Int       @id @default(autoincrement())
+  agentLabel    String
+  symbol        String
+  side          String
+  quantity      Float?
+  notionalUsd   Float?
+  rationale     String
+  signalIdsJson String    @default("[]")
+  status        String    @default("pending")
+  createdAt     DateTime  @default(now())
+  resolvedAt    DateTime?
+}

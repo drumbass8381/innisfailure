@@ -4,6 +4,7 @@ import { xprisma } from "@innisfailures/db";
 import { exchangeProvider, type IExchange } from "@innisfailures/exchanges";
 import type { IGetLimitOrderResponse, XOrderStatus } from "@innisfailures/types";
 import { logger } from "@innisfailures/logger";
+import { formatPaperSmartTradeFill } from "@innisfailures/exchanges";
 import { toDbStatus } from "../utils/index.js";
 
 type SymbolId = string;
@@ -114,7 +115,19 @@ export class ExchangeAccountProcessor {
           filledAt: new Date(exchangeOrder.lastTradeTimestamp),
           fee: exchangeOrder.fee,
         });
-        logger.info(`        -> Filled with price ${exchangeOrder.filledPrice} and fee ${exchangeOrder.fee}`);
+        if (this.exchange.isPaper && exchangeOrder.filledPrice != null) {
+          const detail = await formatPaperSmartTradeFill({
+            exchangeCode: this.exchangeAccount.exchangeCode,
+            order,
+            filledPrice: exchangeOrder.filledPrice,
+            fee: exchangeOrder.fee,
+          });
+          if (detail) {
+            logger.info(`        -> Filled\n${detail}`);
+          }
+        } else {
+          logger.info(`        -> Filled with price ${exchangeOrder.filledPrice} and fee ${exchangeOrder.fee}`);
+        }
 
         return;
       case "Canceled":

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intelligence overview — innisfailures</title>
+    <link rel="stylesheet" href="/hub/hub.css" />
+  </head>
+  <body>
+    <script type="module">
+      import { api, fmtNum, mountLayout, setError } from "/hub/hub.js";
+
+      mountLayout(
+        "overview",
+        "Intelligence overview",
+        "Agentic trading, semantic news, whale alerts, and paper balances in one place.",
+        '<p>Loading…</p>',
+      );
+
+      try {
+        const data = await api("/api/hub/overview");
+        const s = data.settings;
+        document.getElementById("content").innerHTML = `
+          <div class="grid">
+            <div class="card"><h3>Agentic engine</h3><div class="value">${s.enabled ? "ON" : "OFF"}</div></div>
+            <div class="card"><h3>News items</h3><div class="value">${data.newsCount}</div></div>
+            <div class="card"><h3>Whale watches</h3><div class="value">${data.watchCount}</div></div>
+            <div class="card"><h3>Signals (24h)</h3><div class="value">${data.signalCount}</div></div>
+            <div class="card"><h3>Pending intents</h3><div class="value">${data.pendingIntents}</div></div>
+          </div>
+          <h2 style="margin-top:1.5rem;font-size:1.1rem">Paper balances</h2>
+          <table><thead><tr><th>Currency</th><th>Balance</th></tr></thead>
+          <tbody>${(data.paperAssets || [])
+            .map((a) => `<tr><td>${a.currency}</td><td>${fmtNum(a.balance)}</td></tr>`)
+            .join("")}</tbody></table>`;
+      } catch (e) {
+        setError(e.message);
+      }
+    </script>
+  </body>
+</html>

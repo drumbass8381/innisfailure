@@ -23,6 +23,7 @@
     "@innisfailures/bot-templates": "workspace:*",
     "@innisfailures/db": "workspace:*",
     "@innisfailures/event-bus": "workspace:*",
+    "@innisfailures/agentic-intelligence": "workspace:*",
     "@innisfailures/exchanges": "workspace:*",
     "@innisfailures/prisma": "workspace:*",
     "@innisfailures/processing": "workspace:*",

@@ -4,6 +4,12 @@
     "baseUrl": ".",
     "outDir": "../../dts/packages/daemon",
     "paths": {
+      "@innisfailures/agentic-intelligence": [
+        "../agentic-intelligence/src/index.ts"
+      ],
+      "@innisfailures/agentic-intelligence/*": [
+        "../agentic-intelligence/src/*"
+      ],
       "@innisfailures/bot": [
         "../bot/src/index.ts"
       ],
@@ -58,6 +64,9 @@
     "src/**/*"
   ],
   "references": [
+    {
+      "path": "../agentic-intelligence"
+    },
     {
       "path": "../bot"
     },

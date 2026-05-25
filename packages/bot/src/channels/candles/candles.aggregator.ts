@@ -258,6 +258,14 @@ export class CandlesAggregator extends EventEmitter {
       return;
     }
 
+    if (this.candlesHistory.length === 0) {
+      logger.warn(
+        `[${this.symbol}#${this.timeframe}] Skipping warmup: no closed ${this.timeframe} candles in history yet. ` +
+          "The exchange returned no usable 1m candlesticks (wrong symbol, new market, or API limits), or not enough 1m bars to close one bucket.",
+      );
+      return;
+    }
+
     const lastClosedCandleTimestamp = this.candlesHistory[this.candlesHistory.length - 1].timestamp;
     const since = lastClosedCandleTimestamp - 60000 * this.bucketSize * requiredHistory;
     let start = since;
@@ -283,7 +291,10 @@ export class CandlesAggregator extends EventEmitter {
       minuteCandles = minuteCandles.concat(candles);
 
       if (candles.length === 0) {
-        continue;
+        logger.warn(
+          `[${this.symbol}#${this.timeframe}] Warmup: getCandlesticks returned no rows since ${new Date(start).toISOString()}. Stopping fetch loop.`,
+        );
+        break;
       }
 
       start = candles[candles.length - 1].timestamp + 60000;

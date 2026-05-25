@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paper portfolio — innisfailures</title>
+    <link rel="stylesheet" href="/hub/hub.css" />
+  </head>
+  <body>
+    <script type="module">
+      import { api, fmtNum, mountLayout, setError } from "/hub/hub.js";
+
+      mountLayout(
+        "paper",
+        "Paper trading portfolio",
+        "Simulated balances and recent fills (CEX paper ledger).",
+        "<p>Loading…</p>",
+      );
+
+      try {
+        const [assets, orders] = await Promise.all([
+          api("/api/hub/paper/assets"),
+          api("/api/hub/paper/orders"),
+        ]);
+
+        const filled = orders.filter((o) => o.status === "filled");
+        document.getElementById("content").innerHTML = `
+          <div class="grid">
+            ${assets
+              .map(
+                (a) => `<div class="card"><h3>${a.currency}</h3><div class="value">${fmtNum(a.balance)}</div></div>`,
+              )
+              .join("")}
+          </div>
+          <h2 style="margin-top:1.5rem;font-size:1.1rem">Recent fills</h2>
+          <table>
+            <thead><tr><th>Time</th><th>Symbol</th><th>Side</th><th>Qty</th><th>Price</th><th>Notional</th><th>Fee</th></tr></thead>
+            <tbody>${filled
+              .map((o) => {
+                const notional = (o.filledPrice ?? 0) * o.quantity;
+                return `<tr>
+                  <td>${new Date(o.lastTradeTimestamp).toLocaleString()}</td>
+                  <td>${o.symbol}</td>
+                  <td>${o.side}</td>
+                  <td>${fmtNum(o.quantity)}</td>
+                  <td>${fmtNum(o.filledPrice)}</td>
+                  <td>${fmtNum(notional)}</td>
+                  <td>${fmtNum(o.fee)}</td>
+                </tr>`;
+              })
+              .join("")}</tbody>
+          </table>`;
+      } catch (e) {
+        setError(e.message);
+      }
+    </script>
+  </body>
+</html>

@@ -1,7 +1,22 @@
 {
   "name": "@innisfailures/tsconfig",
   "version": "0.0.0",
+  "private": true,
   "description": "TypeScript configuration for innisfailures",
+  "files": [
+    "base.json",
+    "esm.json",
+    "module.json",
+    "nestjs.json",
+    "nextjs.json"
+  ],
+  "exports": {
+    "./base.json": "./base.json",
+    "./esm.json": "./esm.json",
+    "./module.json": "./module.json",
+    "./nestjs.json": "./nestjs.json",
+    "./nextjs.json": "./nextjs.json"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/innisfailures/innisfailures.git"

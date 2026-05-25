@@ -1,0 +1,25 @@
+{
+  "extends": "@innisfailures/tsconfig/esm.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "../../dts/packages/agentic-intelligence",
+    "paths": {
+      "@innisfailures/db": ["../db/src/index.ts"],
+      "@innisfailures/db/*": ["../db/src/*"],
+      "@innisfailures/eslint/*": ["../eslint/*"],
+      "@innisfailures/logger": ["../logger/src/index.ts"],
+      "@innisfailures/logger/*": ["../logger/src/*"],
+      "@innisfailures/orchestrator": ["../orchestrator/src/index.ts"],
+      "@innisfailures/orchestrator/*": ["../orchestrator/src/*"],
+      "@innisfailures/tsconfig/*": ["../tsconfig/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../db" },
+    { "path": "../eslint" },
+    { "path": "../logger" },
+    { "path": "../orchestrator" },
+    { "path": "../tsconfig" }
+  ]
+}

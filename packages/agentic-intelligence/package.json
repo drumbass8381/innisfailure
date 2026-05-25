@@ -1,0 +1,24 @@
+{
+  "name": "@innisfailures/agentic-intelligence",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Agentic trading supervisor, semantic news, and whale wallet watching framework",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "author": "bludnic",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@innisfailures/eslint": "workspace:*",
+    "@innisfailures/tsconfig": "workspace:*",
+    "@types/node": "^22.10.2",
+    "eslint": "8.57.0",
+    "typescript": "5.7.2"
+  },
+  "dependencies": {
+    "@innisfailures/db": "workspace:*",
+    "@innisfailures/logger": "workspace:*",
+    "@innisfailures/orchestrator": "workspace:*",
+    "zod": "4.4.3"
+  }
+}

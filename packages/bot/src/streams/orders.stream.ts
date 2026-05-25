@@ -3,6 +3,7 @@ import type { ExchangeCode, IWatchOrder } from "@innisfailures/types";
 import type { OrderWithSmartTrade, ExchangeAccountWithCredentials } from "@innisfailures/db";
 import { xprisma } from "@innisfailures/db";
 import { logger } from "@innisfailures/logger";
+import { formatPaperSmartTradeFill } from "@innisfailures/exchanges";
 import { decomposeSymbol } from "@innisfailures/tools";
 import { OrdersChannel, OrderEventType } from "../channels/index.js";
 
@@ -20,10 +21,16 @@ export type OrderEvent = {
 export class OrdersStream extends EventEmitter {
   private channels: OrdersChannel[] = [];
   private initialExchangeAccounts: ExchangeAccountWithCredentials[];
+  private paperAccountIds = new Set<number>();
 
   constructor(exchangeAccounts: ExchangeAccountWithCredentials[]) {
     super();
     this.initialExchangeAccounts = exchangeAccounts;
+    for (const account of exchangeAccounts) {
+      if (account.isPaperAccount) {
+        this.paperAccountIds.add(account.id);
+      }
+    }
   }
 
   async create() {
@@ -37,6 +44,12 @@ export class OrdersStream extends EventEmitter {
     if (watcherExists) {
       logger.warn(`⚠️ Already watching exchange account with ID ${exchangeAccount.id}.`);
       return;
+    }
+
+    if (exchangeAccount.isPaperAccount) {
+      this.paperAccountIds.add(exchangeAccount.id);
+    } else {
+      this.paperAccountIds.delete(exchangeAccount.id);
     }
 
     const ordersWatcher = new OrdersChannel(exchangeAccount);
@@ -64,6 +77,8 @@ export class OrdersStream extends EventEmitter {
     ordersChannel.unsubscribeAll();
     await ordersChannel.disable();
 
+    this.paperAccountIds.delete(exchangeAccount.id);
+
     // exclude the watcher from the list
     this.channels = this.channels.filter((channel) => channel.exchangeAccount.id !== exchangeAccount.id);
 
@@ -83,9 +98,24 @@ export class OrdersStream extends EventEmitter {
   }
 
   private async onOrderFilled(exchangeOrder: IWatchOrder, order: OrderWithSmartTrade, exchangeCode: ExchangeCode) {
-    logger.info(
-      `🔋 [${exchangeCode}] onOrderFilled: Order #${order.id}: ${order.exchangeOrderId} was filled with price ${exchangeOrder.filledPrice} at ${exchangeOrder.lastTradeTimestamp} timestamp`,
-    );
+    const isPaper = this.paperAccountIds.has(order.smartTrade.exchangeAccountId);
+
+    if (isPaper && exchangeOrder.filledPrice != null) {
+      const detail = await formatPaperSmartTradeFill({
+        exchangeCode,
+        order,
+        filledPrice: exchangeOrder.filledPrice,
+        fee: exchangeOrder.fee,
+      });
+      if (detail) {
+        logger.info(`🔋 Paper fill\n${detail}`);
+      }
+    } else {
+      logger.info(
+        `🔋 [${exchangeCode}] onOrderFilled: Order #${order.id}: ${order.exchangeOrderId} was filled with price ${exchangeOrder.filledPrice} at ${exchangeOrder.lastTradeTimestamp} timestamp`,
+      );
+    }
+
     const updatedOrder = await xprisma.order.updateStatusToFilled({
       orderId: order.id,
       filledPrice: exchangeOrder.filledPrice,
