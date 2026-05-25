@@ -31,7 +31,7 @@
     "typecheck": "moon run :typecheck",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "release": "moon run :build && moon run :dts && ./scripts/release.mjs",
-    "ui:patch": "node scripts/patch-wordmark.js && node scripts/patch-frontend-sidebar.mjs",
+    "ui:patch": "node scripts/patch-wordmark.js && node scripts/patch-frontend-sidebar.mjs && node scripts/patch-grid-bot-empty-account.mjs",
     "ui:sync": "moon run frontend:build && rm -rf apps/cli/frontend && cp -r pro/frontend/dist apps/cli/frontend && cp -r apps/cli/hub-ui apps/cli/frontend/hub && npm run ui:patch",
     "debug": "ts-node --transpile-only packages/cli/src/index.ts trade debug"
   },

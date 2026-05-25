@@ -13,11 +13,12 @@ const oldNav =
 const newNav =
   'uR=({size:c})=>I.jsxs(Wf,{size:"lg",children:[I.jsx(BT,{href:ii("bot"),icon:I.jsx(V4,{}),size:c,children:"Bots"}),I.jsx(BT,{href:ii("strategies"),size:c,children:"Strategies"}),I.jsx(BT,{href:ii("grid-bot/create"),size:c,children:"Grid bots"}),I.jsx(BT,{href:ii("dca-bot/create"),size:c,children:"DCA bots"}),I.jsx(BT,{href:"/hub/index.html",size:c,children:"Intelligence"}),I.jsx(BT,{href:"/hub/agentic.html",size:c,children:"Agentic trading"}),I.jsx(BT,{href:"/hub/news.html",size:c,children:"Semantic news"}),I.jsx(BT,{href:"/hub/whales.html",size:c,children:"Whale wallets"}),I.jsx(BT,{href:"/hub/paper.html",size:c,children:"Paper portfolio"}),I.jsx(BT,{href:ii("accounts"),icon:I.jsx(Sue,{}),size:c,children:"My exchanges"}),I.jsx(BT,{href:ii("settings"),icon:I.jsx(vue,{}),size:c,children:"Settings"})]});';
 
-if (!s.includes(oldNav)) {
+if (s.includes(oldNav)) {
+  s = s.replace(oldNav, newNav);
+} else if (!s.includes('href:"/hub/index.html"')) {
   console.error("Sidebar nav pattern not found — bundle may have changed.");
   process.exit(1);
 }
-s = s.replace(oldNav, newNav);
 
 const oldFooter =
   'cR=({size:c})=>I.jsxs(Wf,{size:"lg",sx:{flexGrow:"unset"},children:[I.jsx(ea,{}),I.jsx(BT,{append:I.jsx(nue,{}),href:rue,icon:I.jsx(aue,{}),size:c,target:"_blank",children:null})]});';
@@ -25,11 +26,12 @@ const oldFooter =
 const newFooter =
   'cR=({size:c})=>I.jsxs(Wf,{size:"lg",sx:{flexGrow:"unset",alignItems:"center",gap:1},children:[I.jsx(ea,{}),I.jsx(nue,{})]});';
 
-if (!s.includes(oldFooter)) {
+if (s.includes(oldFooter)) {
+  s = s.replace(oldFooter, newFooter);
+} else if (!s.includes("GitHub removed") && !s.includes('flexGrow:"unset",alignItems:"center"')) {
   console.error("Sidebar footer pattern not found — bundle may have changed.");
   process.exit(1);
 }
-s = s.replace(oldFooter, newFooter);
 
 const oldMobile =
   'function _ue(){const c=C9(),e=t=>t===c.pathname?"var(--joy-palette-neutral-plainHoverBg)":void 0;return I.jsxs(I.Fragment,{children:[I.jsx(ai,{color:"neutral",component:Do,href:ii("bot"),size:"lg",variant:"plain",sx:{backgroundColor:e(ii("bot"))},children:"Bots"}),I.jsx(ai,{color:"neutral",component:Do,href:ii("strategies"),size:"lg",variant:"plain",sx:{backgroundColor:e(ii("strategies"))},children:"Strategies"}),I.jsx(ai,{color:"neutral",component:Do,href:ii("accounts"),size:"lg",variant:"plain",sx:{backgroundColor:e(ii("accounts"))},children:"Exchange Accounts"})]})}';
@@ -43,5 +45,22 @@ if (s.includes(oldMobile)) {
   console.warn("Mobile nav pattern not found — skipped mobile patch.");
 }
 
+// Hub pages are static HTML — must use full navigation, not TanStack Router (shows "Not Found").
+const oldBT =
+  "BT=({icon:c,size:e,href:t,target:s,children:i,append:n})=>I.jsxs(lue,{component:Do,href:t,target:s,children:";
+const newBT =
+  'BT=({icon:c,size:e,href:t,target:s,children:i,append:n})=>I.jsxs(lue,{component:t!=null&&String(t).startsWith("/hub")?"a":Do,href:t,target:s,children:';
+if (s.includes(oldBT)) {
+  s = s.replace(oldBT, newBT);
+} else if (!s.includes('startsWith("/hub")')) {
+  console.error("BT component pattern not found — cannot patch hub external links.");
+  process.exit(1);
+}
+
+s = s.replace(
+  'component:Do,href:"/hub/index.html"',
+  'component:"a",href:"/hub/index.html"',
+);
+
 fs.writeFileSync(bundlePath, s);
-console.log("Sidebar patched: GitHub removed, menu expanded.");
+console.log("Sidebar patched: GitHub removed, menu expanded, hub links external.");

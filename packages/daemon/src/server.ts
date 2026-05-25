@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Fastify from "fastify";
@@ -48,6 +49,28 @@ export const createServer = (params: CreateServerOptions) => {
   });
 
   void registerHubApi(fastify);
+
+  const indexHtmlPath = path.join(staticDir, "index.html");
+
+  fastify.setNotFoundHandler(async (request, reply) => {
+    const url = request.url.split("?")[0] ?? "";
+
+    if (url.startsWith("/api/")) {
+      return reply.status(404).send({ message: "Not Found" });
+    }
+
+    const hasFileExtension = /\.[a-z0-9]+$/i.test(url);
+    if (hasFileExtension && !url.endsWith(".html")) {
+      return reply.status(404).send("Not Found");
+    }
+
+    if (!fs.existsSync(indexHtmlPath)) {
+      return reply.status(404).send("Not Found");
+    }
+
+    const html = fs.readFileSync(indexHtmlPath, "utf8");
+    return reply.type("text/html").send(html);
+  });
 
   return {
     app: fastify,
