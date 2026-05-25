@@ -4,15 +4,8 @@
   </a>
 </p>
 
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bludnic/innisfailures/dev.yml)](https://github.com/bludnic/innisfailures/actions)
-[![NPM Version](https://img.shields.io/npm/v/innisfailures?color=blue)](https://www.npmjs.com/package/innisfailures)
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/bludnic/innisfailures)](https://github.com/bludnic/innisfailures/graphs/contributors)
-[![Static Badge](https://img.shields.io/badge/Twitter-black?logo=X&color=white&logoColor=black)](https://twitter.com/intent/follow?screen_name=innisfailures)
-[![Static Badge](https://img.shields.io/badge/Discord-white?logo=Discord)](https://discord.gg/RS7y3ffvvG)
-[![Static Badge](https://img.shields.io/badge/Reddit-white?logo=Reddit)](https://www.reddit.com/r/innisfailures)
-[![Static Badge](https://img.shields.io/badge/Telegram-white?logo=Telegram)](https://t.me/+cJLNxLSjcW83Njgy)
 
-[innisfailures](https://github.com/bludnic/innisfailures) is a self-hosted cryptocurrency trading bot, featuring built-in and highly customizable strategies, integration with technical indicators, high-frequency trading, and cross-exchange trading with support for 100+ exchanges via CCXT.
+This is a self-hosted cryptocurrency trading bot, featuring built-in and highly customizable strategies, integration with technical indicators, high-frequency trading, and cross-exchange trading with support for 100+ exchanges via CCXT.
 
 **Features:**
 
@@ -28,34 +21,6 @@
 - ☑️ [DCA](packages/bot-templates/src/templates/dca.ts): Entry with multiple orders to average the entry price and sell on price swings.
 - ☑️ [RSI](packages/bot-templates/src/templates/rsi.ts): Places orders based on the RSI indicator value.
 - 🛠️ [CUSTOM](https://github.com/innisfailures/custom-strategy): Build your own strategy in just a few lines of code.
-
-# 💓 Status of the Project
-
-This project is a personal passion, developed in my free time. If you find it useful, please give it a ⭐️. Your support means a lot and motivates me to keep improving the bot. If you'd like to make a [donation](#Donate), see the options below. 💖
-
-# 🍩 Donate
-
-If you find innisfailures useful and would like to support its development, consider making a donation. Your contributions will help cover the costs of maintaining and improving this project.
-
-**Donate via:**
-
-- **Bitcoin (BTC):** `1LBqWWne1ac455UmUDVF32ozVAhy1HgVXn`
-- **Ethereum (ETH):** `0x60371d49F9Cc7ec7d7e34979D5DD31996B7B43Ff`
-
-Thank you for your support!
-
-# 👋🏻 Join our Community
-
-👥 Connect with developers, request features, and receive support. Join our community on [Discord](https://discord.gg/RS7y3ffvvG).
-
-[![Static Badge](https://img.shields.io/badge/Discord-white?logo=Discord&style=for-the-badge&color=white&logoColor=7289da)](https://discord.gg/RS7y3ffvvG)
-[![Static Badge](https://img.shields.io/badge/Telegram-white?logo=Telegram&style=for-the-badge&color=white)](https://t.me/+cJLNxLSjcW83Njgy)
-[![Static Badge](https://img.shields.io/badge/Reddit-white?logo=Reddit&style=for-the-badge&color=white)](https://www.reddit.com/r/innisfailures)
-
-🔔 For announcements and updates, follow us on [Twitter](https://twitter.com/intent/follow?screen_name=innisfailures) and [Telegram](https://t.me/innisfailures_pro).
-
-[![Static Badge](https://img.shields.io/badge/Twitter-white?logo=X&style=for-the-badge&color=black)](https://twitter.com/intent/follow?screen_name=innisfailures)
-[![Static Badge](https://img.shields.io/badge/Telegram-white?logo=Telegram&style=for-the-badge&color=24A1DE&logoColor=white)](https://t.me/innisfailures_pro)
 
 # ⚡️ Quick start
 
